@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.green
         var centerLabel = UILabel.init()
-        centerLabel.text = "测试"
+        centerLabel.text = "测试换个标题"
         centerLabel.textColor = UIColor.black
         centerLabel.sizeToFit()
         centerLabel.center = CGPoint(x:self.view.frame.size.width * 0.5,y:self.view.frame.size.height * 0.5)
