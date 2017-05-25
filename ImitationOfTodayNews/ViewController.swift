@@ -12,12 +12,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.green
-        var centerLabel = UILabel.init()
+        self.view.backgroundColor = TNGlobalRedColor()
+        let centerLabel = UILabel.init()
         centerLabel.text = "测试换个标题"
-        centerLabel.textColor = UIColor.black
+        centerLabel.textColor = UIColor.hexColor("65abbb", 1.0)
         centerLabel.sizeToFit()
-        centerLabel.center = CGPoint(x:self.view.frame.size.width * 0.5,y:self.view.frame.size.height * 0.5)
+        centerLabel.center = CGPoint(x:self.view.width * 0.5,y:self.view.height * 0.5)
         self.view.addSubview(centerLabel)
         // Do any additional setup after loading the view, typically from a nib.
     }
