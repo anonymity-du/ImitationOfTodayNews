@@ -85,4 +85,25 @@ extension UIView{
         }
     }
     
+    var right : CGFloat {
+        get {
+            return frame.origin.x + frame.size.width
+        }
+        set {
+            var tempFrame : CGRect = frame
+            tempFrame.origin.x = newValue - frame.size.width
+            frame = tempFrame
+        }
+    }
+    
+    var bottom : CGFloat {
+        get {
+            return frame.origin.y + frame.size.height
+        }
+        set {
+            var tempFrame : CGRect = frame
+            tempFrame.origin.y = newValue - frame.size.height
+            frame = tempFrame
+        }
+    }
 }

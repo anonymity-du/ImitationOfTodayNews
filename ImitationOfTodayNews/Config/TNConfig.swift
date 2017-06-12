@@ -8,6 +8,26 @@
 
 import UIKit
 
+let IID: String = "5034850950"
+let device_id: String = "6096495334"
+let BASE_URL = "http://lf.snssdk.com/"
+
+//字体
+
+let ContentFont11 = UIFont.systemFont(ofSize: 11)
+let ContentFont12 = UIFont.systemFont(ofSize: 12)
+let ContentFont13 = UIFont.systemFont(ofSize: 13)
+let ContentFont14 = UIFont.systemFont(ofSize: 14)
+let ContentFont15 = UIFont.systemFont(ofSize: 15)
+let ContentFont16 = UIFont.systemFont(ofSize: 16)
+let ContentFont17 = UIFont.systemFont(ofSize: 17)
+let ContentFont18 = UIFont.systemFont(ofSize: 18)
+
+
+//常量
+let NavigationTitleHeight : CGFloat = 44.0
+let TabBarHeight = 40.0
+
 //初始化设置
 
 func CustomizeAppearance() {

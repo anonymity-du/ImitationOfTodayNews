@@ -23,7 +23,7 @@ class TNTabBarController: UITabBarController {
         let selectImageNameArr = ["home_tabbar_press_22x22_","video_tabbar_press_22x22_","newcare_tabbar_press_22x22_","mine_tabbar_press_22x22_"]
         var childViewControllers = [UIViewController]()
         for index in 0..<titleArr.count {
-            let vc = ViewController()
+            let vc = TNHomeViewController()
             let nav = TNNavigationController.init(rootViewController: vc)
             
             nav.title = titleArr[index]
