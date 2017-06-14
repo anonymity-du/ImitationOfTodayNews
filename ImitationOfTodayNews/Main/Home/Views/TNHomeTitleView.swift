@@ -13,8 +13,14 @@ class TNHomeTitleView: UIView {
     var hasAddIdentifier = false
     var titleArr = [TNHomeTopTitleModel]()
     var labelArr = [TNTitleLabel]()
+    var itemWidthArr = [CGFloat]()
+    
     var selectedIndex : NSInteger = 0
 
+    var addBtnClickedClosure : (() -> ())?
+    var topicSelectedClosure : ((_ titleLabel: TNTitleLabel) -> ())?
+    var titleViewDidInitClosure : ((_ titleArr: [TNHomeTopTitleModel]) -> ())?
+    
     fileprivate lazy var scrollview:UIScrollView = {
         let scrollview = UIScrollView()
         scrollview.showsHorizontalScrollIndicator = false
@@ -50,10 +56,12 @@ class TNHomeTitleView: UIView {
         addButton.x =  scrollview.right
         
         self.createSubLabels()
+        titleViewDidInitClosure?(titleArr)
     }
     
     fileprivate func createSubLabels(){
         var scrollViewWidth : CGFloat = 0
+        var index = 0;
         
         for model in self.titleArr {
             let itemLabel = TNTitleLabel()
@@ -65,13 +73,18 @@ class TNHomeTitleView: UIView {
             itemLabel.height = itemLabel.height + 5
             itemLabel.textAlignment = NSTextAlignment.center
             self.labelArr.append(itemLabel)
+            itemLabel.tag = index;
+            index = index + 1;
             scrollview.addSubview(itemLabel)
             itemLabel.centerY = self.scrollview.height * 0.5
             itemLabel.x = scrollViewWidth;
             scrollViewWidth += itemLabel.width
+            itemWidthArr.append(itemLabel.width)
             itemLabel.isUserInteractionEnabled = true
             itemLabel.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(itemLabelTaped(_:))))
         }
+        let firstItemLabel = labelArr.first
+        firstItemLabel?.currentScale = 1.2;
         scrollview.contentSize = CGSize(width: scrollViewWidth, height: self.height)
     }
     
@@ -82,11 +95,31 @@ class TNHomeTitleView: UIView {
     func itemLabelTaped(_ gesture: UIGestureRecognizer) {
         print("item label taped")
         let itemLabel = gesture.view as? TNTitleLabel
-        itemLabel?.currentScale = 1.1
+        topicSelectedClosure?(itemLabel!)
+        let originIndex = selectedIndex
+        let originLabel = labelArr[originIndex]
+        originLabel.currentScale = 1.0
+        selectedIndex = (itemLabel?.tag)!
+        
+        var offsetCenterX : CGFloat = 0
+        for index in 0..<selectedIndex {
+            offsetCenterX = offsetCenterX + itemWidthArr[index]
+        }
+        offsetCenterX += itemWidthArr[selectedIndex] * 0.5;
+        var offsetX = offsetCenterX - scrollview.width * 0.5
+        if offsetX < 0 {
+            offsetX = 0
+        }
+        if offsetX > scrollview.contentSize.width - scrollview.width {
+            offsetX = scrollview.contentSize.width - scrollview.width
+        }
+        scrollview.setContentOffset(CGPoint(x:offsetX,y:0), animated: true)
+        itemLabel?.currentScale = 1.2
     }
     
     func addButtonClicked() {
         print("add button clicked")
+        addBtnClickedClosure?()
     }
 }
 
