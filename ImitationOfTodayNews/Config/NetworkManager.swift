@@ -13,6 +13,7 @@ import SwiftyJSON
 
 class NetworkManager: NSObject {
     static let shareManager = NetworkManager()
+    //获取首页的title
     func fetchHomeTitlesData(_ finished:@escaping (_ topTitles:[TNHomeTopTitleModel])->()) {
         let url = BASE_URL + "article/category/get_subscribed/v1/?"
         let params = ["device_id":device_id,
@@ -36,6 +37,22 @@ class NetworkManager: NSObject {
                     finished(topics)
                 }
             }
+        }
+    }
+    func fetchRecommendArticleNumber(_ finished: @escaping (_ count : Int)->()) {
+        let url = BASE_URL + "2/article/v39/refresh_tip/"
+        Alamofire.request(url, method: .get)
+            .responseJSON {(response) in
+                guard response.result.isSuccess else {
+                    SVProgressHUD.showError(withStatus: "加载失败...")
+                    return
+                }
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    let dataDict = json["data"].dictionary
+                    let count = dataDict!["count"]!.int
+                    finished(count!)
+                }
         }
     }
 }

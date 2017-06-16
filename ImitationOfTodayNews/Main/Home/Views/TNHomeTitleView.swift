@@ -96,10 +96,13 @@ class TNHomeTitleView: UIView {
         print("item label taped")
         let itemLabel = gesture.view as? TNTitleLabel
         topicSelectedClosure?(itemLabel!)
-        let originIndex = selectedIndex
-        let originLabel = labelArr[originIndex]
+        titleAdjustScrollView(selectedIndex, (itemLabel?.tag)!)
+    }
+    
+    func titleAdjustScrollView(_ oldIndex : Int,_ newIndex: Int) {
+        let originLabel = labelArr[oldIndex]
         originLabel.currentScale = 1.0
-        selectedIndex = (itemLabel?.tag)!
+        selectedIndex = newIndex
         
         var offsetCenterX : CGFloat = 0
         for index in 0..<selectedIndex {
@@ -113,8 +116,9 @@ class TNHomeTitleView: UIView {
         if offsetX > scrollview.contentSize.width - scrollview.width {
             offsetX = scrollview.contentSize.width - scrollview.width
         }
+        let itemLabel = labelArr[newIndex]
         scrollview.setContentOffset(CGPoint(x:offsetX,y:0), animated: true)
-        itemLabel?.currentScale = 1.2
+        itemLabel.currentScale = 1.2
     }
     
     func addButtonClicked() {

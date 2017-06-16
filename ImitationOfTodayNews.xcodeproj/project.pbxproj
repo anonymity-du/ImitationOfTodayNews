@@ -14,6 +14,7 @@
 		234459321ED68B05002F9A4C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234459311ED68B05002F9A4C /* UIColor+Extension.swift */; };
 		234459341ED6B243002F9A4C /* TNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234459331ED6B242002F9A4C /* TNTabBarController.swift */; };
 		234459371ED70606002F9A4C /* TNHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234459361ED70606002F9A4C /* TNHomeViewController.swift */; };
+		235C3F131EF381C3002E5F77 /* TNTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235C3F121EF381C3002E5F77 /* TNTopTipView.swift */; };
 		235CF28A1EE816240059BC80 /* TNHomeTopTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CF2891EE816240059BC80 /* TNHomeTopTitleModel.swift */; };
 		235CF2981EE830090059BC80 /* Reflect+ArcFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CF28D1EE830090059BC80 /* Reflect+ArcFile.swift */; };
 		235CF2991EE830090059BC80 /* Reflect+Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CF28F1EE830090059BC80 /* Reflect+Parse.swift */; };
@@ -32,6 +33,7 @@
 		23A78FA91ED5D33500AADFE9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A78FA81ED5D33500AADFE9 /* UIView+Extension.swift */; };
 		23A78FB11ED5D9A500AADFE9 /* TNFirstLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A78FB01ED5D9A500AADFE9 /* TNFirstLaunchViewController.xib */; };
 		23CD421B1EE96A5C001613EB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CD421A1EE96A5C001613EB /* NetworkManager.swift */; };
+		23F02CA01EF38EBB008E1B3A /* TNTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */; };
 		C030FCFA7D5546EF4CFB0324 /* Pods_ImitationOfTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD97E58419786CF73CDD5C4 /* Pods_ImitationOfTodayNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,7 @@
 		234459311ED68B05002F9A4C /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		234459331ED6B242002F9A4C /* TNTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTabBarController.swift; sourceTree = "<group>"; };
 		234459361ED70606002F9A4C /* TNHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeViewController.swift; sourceTree = "<group>"; };
+		235C3F121EF381C3002E5F77 /* TNTopTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTopTipView.swift; sourceTree = "<group>"; };
 		235CF2891EE816240059BC80 /* TNHomeTopTitleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeTopTitleModel.swift; sourceTree = "<group>"; };
 		235CF28D1EE830090059BC80 /* Reflect+ArcFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reflect+ArcFile.swift"; sourceTree = "<group>"; };
 		235CF28F1EE830090059BC80 /* Reflect+Parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reflect+Parse.swift"; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		23A78FA81ED5D33500AADFE9 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		23A78FB01ED5D9A500AADFE9 /* TNFirstLaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TNFirstLaunchViewController.xib; sourceTree = "<group>"; };
 		23CD421A1EE96A5C001613EB /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTopicViewController.swift; sourceTree = "<group>"; };
 		BAF3BB240A333F7356AB827B /* Pods-ImitationOfTodayNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImitationOfTodayNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImitationOfTodayNews/Pods-ImitationOfTodayNews.release.xcconfig"; sourceTree = "<group>"; };
 		BFD97E58419786CF73CDD5C4 /* Pods_ImitationOfTodayNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImitationOfTodayNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -242,6 +246,7 @@
 			children = (
 				2344592D1ED689B0002F9A4C /* TNNavigationController.swift */,
 				234459331ED6B242002F9A4C /* TNTabBarController.swift */,
+				23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 		23A78FA01ED5D31400AADFE9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				235C3F121EF381C3002E5F77 /* TNTopTipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -565,11 +571,13 @@
 				235CF29D1EE830090059BC80 /* Reflect+Property.swift in Sources */,
 				235CF29F1EE830090059BC80 /* Reflect.swift in Sources */,
 				235CF28A1EE816240059BC80 /* TNHomeTopTitleModel.swift in Sources */,
+				235C3F131EF381C3002E5F77 /* TNTopTipView.swift in Sources */,
 				235CF29E1EE830090059BC80 /* Reflect+Type.swift in Sources */,
 				235CF29A1EE830090059BC80 /* Reflect+Convert.swift in Sources */,
 				23301C5B1ED6810500F28C85 /* TNFirstLaunchViewController.swift in Sources */,
 				234459301ED689F9002F9A4C /* TNConfig.swift in Sources */,
 				23A78FA91ED5D33500AADFE9 /* UIView+Extension.swift in Sources */,
+				23F02CA01EF38EBB008E1B3A /* TNTopicViewController.swift in Sources */,
 				235CF29B1EE830090059BC80 /* Reflect+Class.swift in Sources */,
 				23CD421B1EE96A5C001613EB /* NetworkManager.swift in Sources */,
 				23A78F651ED55DB900AADFE9 /* ViewController.swift in Sources */,
