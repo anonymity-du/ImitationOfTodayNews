@@ -34,6 +34,8 @@
 		23A78FB11ED5D9A500AADFE9 /* TNFirstLaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A78FB01ED5D9A500AADFE9 /* TNFirstLaunchViewController.xib */; };
 		23CD421B1EE96A5C001613EB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CD421A1EE96A5C001613EB /* NetworkManager.swift */; };
 		23F02CA01EF38EBB008E1B3A /* TNTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */; };
+		23F02CA21EF40D40008E1B3A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F02CA11EF40D40008E1B3A /* ListViewController.swift */; };
+		23F02CA41EF414E2008E1B3A /* GenericTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F02CA31EF414E2008E1B3A /* GenericTableView.swift */; };
 		C030FCFA7D5546EF4CFB0324 /* Pods_ImitationOfTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD97E58419786CF73CDD5C4 /* Pods_ImitationOfTodayNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,7 +90,9 @@
 		23A78FA81ED5D33500AADFE9 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		23A78FB01ED5D9A500AADFE9 /* TNFirstLaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TNFirstLaunchViewController.xib; sourceTree = "<group>"; };
 		23CD421A1EE96A5C001613EB /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTopicViewController.swift; sourceTree = "<group>"; };
+		23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TNTopicViewController.swift; path = ../../../Base/Controller/TNTopicViewController.swift; sourceTree = "<group>"; };
+		23F02CA11EF40D40008E1B3A /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		23F02CA31EF414E2008E1B3A /* GenericTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableView.swift; sourceTree = "<group>"; };
 		BAF3BB240A333F7356AB827B /* Pods-ImitationOfTodayNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImitationOfTodayNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImitationOfTodayNews/Pods-ImitationOfTodayNews.release.xcconfig"; sourceTree = "<group>"; };
 		BFD97E58419786CF73CDD5C4 /* Pods_ImitationOfTodayNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImitationOfTodayNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -246,7 +250,7 @@
 			children = (
 				2344592D1ED689B0002F9A4C /* TNNavigationController.swift */,
 				234459331ED6B242002F9A4C /* TNTabBarController.swift */,
-				23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */,
+				23F02CA11EF40D40008E1B3A /* ListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -271,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				235C3F121EF381C3002E5F77 /* TNTopTipView.swift */,
+				23F02CA31EF414E2008E1B3A /* GenericTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				234459361ED70606002F9A4C /* TNHomeViewController.swift */,
+				23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -566,6 +572,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				235CF29C1EE830090059BC80 /* Reflect+Other.swift in Sources */,
+				23F02CA41EF414E2008E1B3A /* GenericTableView.swift in Sources */,
 				234459321ED68B05002F9A4C /* UIColor+Extension.swift in Sources */,
 				234459371ED70606002F9A4C /* TNHomeViewController.swift in Sources */,
 				235CF29D1EE830090059BC80 /* Reflect+Property.swift in Sources */,
@@ -580,6 +587,7 @@
 				23F02CA01EF38EBB008E1B3A /* TNTopicViewController.swift in Sources */,
 				235CF29B1EE830090059BC80 /* Reflect+Class.swift in Sources */,
 				23CD421B1EE96A5C001613EB /* NetworkManager.swift in Sources */,
+				23F02CA21EF40D40008E1B3A /* ListViewController.swift in Sources */,
 				23A78F651ED55DB900AADFE9 /* ViewController.swift in Sources */,
 				234459341ED6B243002F9A4C /* TNTabBarController.swift in Sources */,
 				2344592E1ED689B0002F9A4C /* TNNavigationController.swift in Sources */,

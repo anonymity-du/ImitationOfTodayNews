@@ -55,4 +55,19 @@ class NetworkManager: NSObject {
                 }
         }
     }
+    func fetchHomeCategoryNews(_ category:String,_ lastTimeInterval:TimeInterval,_ finished:@escaping ((_ topics:[UILabel])->())) {
+        let url = BASE_URL + "api/news/feed/v39/?"
+        let params : [String : Any]
+        if lastTimeInterval > 0 {
+            params = ["device_id": device_id,
+                      "category": category,
+                      "iid": IID,
+                      "last_refresh_sub_entrance_interval": lastTimeInterval] as [String : Any]
+        }else {
+            params = ["device_id": device_id,
+                      "category": category,
+                      "iid": IID]
+        }
+        
+    }
 }
