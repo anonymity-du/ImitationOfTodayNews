@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class TNHomeViewController: UIViewController , UIScrollViewDelegate{
 
@@ -43,7 +44,8 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
             _ = Reflect.save(obj: titleArr as AnyObject, name: "top_title", duration: 0)
             var colorNumber : CGFloat = 10;
             for topTitle in titleArr {
-                let topicVC = UIViewController()
+                let topicVC = TNTopicViewController()
+                topicVC.titleModel = topTitle
                 topicVC.title = topTitle.name
                 topicVC.view.backgroundColor = UIColor.init(red: colorNumber/255.0, green: colorNumber/255.0, blue: 0, alpha: 1.0)
                 colorNumber = colorNumber + 10
@@ -55,7 +57,8 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
     }
     
     func showRecommendCountTips() {
-        NetworkManager.shareManager.fetchRecommendArticleNumber { [weak self](count) in
+        
+        NetworkManager.shareManager.fetchRecommendArticleNumber({ [weak self](count) in
             self?.tipView.title = (count == 0) ? "暂无更新，请稍等一会儿" : "今日头条推荐有\(count)条更新"
             self?.tipView.transform = CGAffineTransform(scaleX: 0.1, y: 1.0)
             self?.tipView.alpha = 1.0
@@ -68,6 +71,8 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
                     })
                 }
             })
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: "加载失败...")
         }
     }
     
@@ -94,7 +99,7 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
     
     fileprivate func addSubVCView() {
         let index = Int(scrollView.contentOffset.x/scrollView.width)
-        let vc = self.childViewControllers[index]
+        let vc = self.childViewControllers[index] as! TNTopicViewController
         if !scrollView.subviews.contains(vc.view) {
             vc.view.x = scrollView.contentOffset.x
             vc.view.y = 0

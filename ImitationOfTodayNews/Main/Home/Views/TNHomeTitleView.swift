@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class TNHomeTitleView: UIView {
     
@@ -38,7 +39,7 @@ class TNHomeTitleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        NetworkManager.shareManager.fetchHomeTitlesData { [weak self](topTitles) in
+        NetworkManager.shareManager.fetchHomeTitlesData({ [weak self](topTitles) in
             print(topTitles)
             let recommend = TNHomeTopTitleModel()
             recommend.category = "__all__"
@@ -46,6 +47,8 @@ class TNHomeTitleView: UIView {
             self!.titleArr.append(recommend)
             self!.titleArr += topTitles
             self!.setupUI()
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: "加载失败...")
         }
     }
     fileprivate func setupUI(){

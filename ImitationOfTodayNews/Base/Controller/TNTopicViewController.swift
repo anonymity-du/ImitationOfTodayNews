@@ -8,10 +8,16 @@
 
 import UIKit
 import MJRefresh
+import SVProgressHUD
+
+let NoImageCellIdentifier = "NoImageCellIdentifier"
 
 class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewDataSource {
     
     var didLoad : Bool = false
+    var titleModel : TNHomeTopTitleModel?
+    var refreshTime : TimeInterval = 0
+    var dataArray = [TNTopicModel]()
     
     
     override func viewDidLoad() {
@@ -19,11 +25,108 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.refreshAction()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !didLoad {
+            didLoad = true
+            self.tableView.frame = self.view.bounds
+            self.tableView.mj_header.beginRefreshing()
+        }
     }
     
     override func refreshAction() {
-        
+        self.refreshTime = 0
+        NetworkManager.shareManager.fetchHomeCategoryNews((titleModel?.category)!, self.refreshTime, { [weak self] (topics) in
+            self?.refreshTime = Date().timeIntervalSince1970
+            self?.endRefresh()
+            print(topics)
+            self?.calculateDistance(topics)
+            self?.dataArray.removeAll()
+            self?.dataArray.append(contentsOf: topics)
+            self?.tableView.reloadData()
+        }) { [weak self](error) in
+            self?.endRefresh()
+            SVProgressHUD.showError(withStatus: "加载失败...")
+        }
+    }
+    
+    override func loadMoreAction() {
+        NetworkManager.shareManager.fetchHomeCategoryNews((titleModel?.category)!, self.refreshTime, {[weak self] (topics) in
+            print(topics)
+            self?.dataArray.append(contentsOf: topics)
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: "加载失败...")
+        }
+    }
+    
+    fileprivate func calculateDistance(_ topics:[TNTopicModel]) {
+        for itemTopic in topics {
+            var imageW : CGFloat = 0
+            var imageH : CGFloat = 0
+            var titleW : CGFloat = 0
+            var titleH : CGFloat = 0
+            var cellHeight : CGFloat = 0
+            
+            if itemTopic.image_list.count == 0 {
+                // 再判断 middle_image 是否为空
+                if itemTopic.middle_image?.height != nil {
+                    // 大图、视频图片或广告
+                    // 如果 large_image_list 或 video_detail_info 不为空，则显示一张大图 (SCREENW -30)×170，文字在上边
+                    // 再判断 video_detail_info 是否为空
+                    if itemTopic.video_detail_info?.video_id != nil || itemTopic.large_image_list.count > 0 {
+                        imageW = SCREEN_WIDTH - CGFloat(30)
+                        imageH = 170
+                        titleW = SCREEN_WIDTH - 30
+                        titleH = NSString.boundingRectWithString(itemTopic.title!, size: CGSize(width: titleW, height: CGFloat(MAXFLOAT)), fontSize: 17)
+                        // 中间有一张大图（包括视频和广告的图片），cell 的高度 = 底部间距 + 标题的高度 + 中间间距 + 图片高度 + 中间间距 + 用户头像的高度 + 底部间距
+                        cellHeight = 2 * kHomeMargin + titleH + imageH + 2 * kMargin + 16
+//                        if itemTopic.large_image_list.count > 0 {
+//                            for index in itemTopic.large_image_list {
+//                                let largeImage = YMLargeImageList(dict: index as! [String : AnyObject])
+//                                large_image_list.append(largeImage)
+//                            }
+//                        }
+                    } else {
+                        // 如果 middle_image 不为空，则在 cell 显示一张图片 70 × 108，文字在左边，图片在右边
+                        // 说明是右边图
+                        imageW = 108
+                        // 图片在右边的情况和有三张图片的情况，为了计算简单，图片的高度设置为相等
+                        imageH = 70
+                        // 文字宽度 SCREENW - 108 - 30 - 20
+                        titleW = SCREEN_WIDTH - 158
+                        titleH = NSString.boundingRectWithString(itemTopic.title!, size: CGSize(width: titleW, height: CGFloat(MAXFLOAT)), fontSize: 17)
+                        // 比较标题和图片的高度哪个大，那么 cell 的高度就根据大的计算
+                        // 右边有一张图片，cell 的高度 = 底部间距 + 标题的高度 + 中间的间距 + 用户头像的高度 + 底部间距
+                        cellHeight = (titleH + 16 + kMargin >= imageH) ? (2 * kHomeMargin + titleH + kMargin + 16):(2 * kHomeMargin + imageH)
+                    }
+                } else { // 没有图片,也不是视频
+                    titleW = SCREEN_WIDTH - 30
+                    titleH = NSString.boundingRectWithString(itemTopic.title!, size: CGSize(width: titleW, height: CGFloat(MAXFLOAT)), fontSize: 17)
+                    // 没有图片，cell 的高度 = 底部间距 + 标题的高度 + 中间的间距 + 用户头像的高度 + 底部间距
+                    cellHeight = 2 * kHomeMargin + titleH + kMargin + 16
+                }
+            } else {
+                // 如果 image_list 不为空，则显示 3 张图片 ((SCREENW -30 -12) / 3)×70，文字在上边
+                // 循环遍历 image_list
+//                for item in imageLists! {
+//                    let imageList = YMImageList(dict: item as! [String: AnyObject])
+//                    image_list.append(imageList)
+//                }
+                imageW = (SCREEN_WIDTH - CGFloat(42)) / 3
+                imageH = 70
+                // 文字的宽度 SCREENW-30
+                titleW = SCREEN_WIDTH - 30
+                titleH = NSString.boundingRectWithString(itemTopic.title!, size: CGSize(width: titleW, height: CGFloat(MAXFLOAT)), fontSize: 17)
+                cellHeight = 2 * kHomeMargin + titleH + imageH + 2 * kMargin + 16
+            }
+            itemTopic.imageW = imageW
+            itemTopic.imageH = imageH
+            itemTopic.titleW = titleW
+            itemTopic.titleH = titleH
+            itemTopic.cellHeight = cellHeight
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -31,14 +134,22 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return dataArray.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        return cell
+        var cell = tableView.dequeueReusableCell(withIdentifier: NoImageCellIdentifier)
+        if cell == nil{
+            cell = TNHomeNoImageCell(style: UITableViewCellStyle.default, reuseIdentifier: NoImageCellIdentifier)
+        }
+        (cell as? TNHomeNoImageCell)?.model = self.dataArray[indexPath.row]
+        return cell!
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let topicModel = self.dataArray[indexPath.row]
+        return topicModel.cellHeight
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

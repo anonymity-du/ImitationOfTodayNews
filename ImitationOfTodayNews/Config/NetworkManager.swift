@@ -14,7 +14,7 @@ import SwiftyJSON
 class NetworkManager: NSObject {
     static let shareManager = NetworkManager()
     //获取首页的title
-    func fetchHomeTitlesData(_ finished:@escaping (_ topTitles:[TNHomeTopTitleModel])->()) {
+    func fetchHomeTitlesData(_ success:@escaping (_ topTitles:[TNHomeTopTitleModel])->(),_ failure:@escaping (_ error:Error)->()) {
         let url = BASE_URL + "article/category/get_subscribed/v1/?"
         let params = ["device_id":device_id,
                       "aid":13,
@@ -22,40 +22,41 @@ class NetworkManager: NSObject {
         Alamofire.request(url, method: .get, parameters: params )
         .responseJSON { (response) in
             guard response.result.isSuccess else {
-                SVProgressHUD.showError(withStatus: "加载失败...")
+                failure(response.error!)
                 return
             }
+            var topics = [TNHomeTopTitleModel]()
             if let value = response.result.value {
                 let json = JSON(value)
                 let dataDict = json["data"].dictionary
                 if let data = dataDict?["data"]?.arrayObject {
-                    var topics = [TNHomeTopTitleModel]()
                     for dict in data {
                         let title = TNHomeTopTitleModel.parse(dict: dict as! NSDictionary)
                         topics.append(title)
                     }
-                    finished(topics)
                 }
             }
+            success(topics)
         }
     }
-    func fetchRecommendArticleNumber(_ finished: @escaping (_ count : Int)->()) {
+    func fetchRecommendArticleNumber(_ success: @escaping (_ count : Int)->(),_ failure: @escaping (_ error : Error)->()) {
         let url = BASE_URL + "2/article/v39/refresh_tip/"
         Alamofire.request(url, method: .get)
             .responseJSON {(response) in
                 guard response.result.isSuccess else {
-                    SVProgressHUD.showError(withStatus: "加载失败...")
+                    failure(response.error!)
                     return
                 }
+                var count : Int? = 0
                 if let value = response.result.value {
                     let json = JSON(value)
                     let dataDict = json["data"].dictionary
-                    let count = dataDict!["count"]!.int
-                    finished(count!)
+                    count = dataDict!["count"]!.int
                 }
+                success(count!)
         }
     }
-    func fetchHomeCategoryNews(_ category:String,_ lastTimeInterval:TimeInterval,_ finished:@escaping ((_ topics:[UILabel])->())) {
+    func fetchHomeCategoryNews(_ category:String,_ lastTimeInterval:TimeInterval,_ success:@escaping ((_ topics:[TNTopicModel])->()),_ failure:@escaping (_ error:Error)->()) {
         let url = BASE_URL + "api/news/feed/v39/?"
         let params : [String : Any]
         if lastTimeInterval > 0 {
@@ -67,6 +68,30 @@ class NetworkManager: NSObject {
             params = ["device_id": device_id,
                       "category": category,
                       "iid": IID]
+        }
+        Alamofire.request(url, method: .get, parameters: params)
+            .responseJSON{ (response) in
+                guard response.result.isSuccess else {
+                    failure(response.error!)
+                    return
+                }
+                var topics = [TNTopicModel]()
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    let datas = json["data"].array
+                    for data in datas! {
+                        let content = data["content"].stringValue
+                        let contentData:Data = content.data(using: String.Encoding.utf8)!
+                        do{
+                            let dict = try JSONSerialization.jsonObject(with: contentData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
+                            let topic = TNTopicModel.parse(dict: dict )
+                            topics.append(topic)
+                        }catch {
+                            failure(response.error!)
+                        }
+                    }
+                }
+                success(topics)
         }
         
     }

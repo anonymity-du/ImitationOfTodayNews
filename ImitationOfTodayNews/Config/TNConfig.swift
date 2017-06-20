@@ -27,6 +27,10 @@ let ContentFont18 = UIFont.systemFont(ofSize: 18)
 //常量
 let NavigationTitleHeight : CGFloat = 44.0
 let TabBarHeight = 40.0
+let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
+let kHomeMargin: CGFloat = 15.0
+let kMargin: CGFloat = 10.0
 
 //初始化设置
 
