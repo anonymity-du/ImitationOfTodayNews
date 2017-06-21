@@ -11,6 +11,9 @@ import MJRefresh
 import SVProgressHUD
 
 let NoImageCellIdentifier = "NoImageCellIdentifier"
+let ThreeImageCellIdentifier = "ThreeImageCellIdentifier"
+let LargeImageCellIdentifier = "LargeImageCellIdentifier"
+let RightImageCellIdentifier = "RightImageCellIdentifier"
 
 class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -18,7 +21,6 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
     var titleModel : TNHomeTopTitleModel?
     var refreshTime : TimeInterval = 0
     var dataArray = [TNTopicModel]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +56,14 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
     
     override func loadMoreAction() {
         NetworkManager.shareManager.fetchHomeCategoryNews((titleModel?.category)!, self.refreshTime, {[weak self] (topics) in
+            self?.refreshTime = Date().timeIntervalSince1970
+            self?.endRefresh()
             print(topics)
+            self?.calculateDistance(topics)
             self?.dataArray.append(contentsOf: topics)
-        }) { (error) in
+            self?.tableView.reloadData()
+        }) { [weak self](error) in
+            self?.endRefresh()
             SVProgressHUD.showError(withStatus: "加载失败...")
         }
     }
@@ -82,12 +89,6 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
                         titleH = NSString.boundingRectWithString(itemTopic.title!, size: CGSize(width: titleW, height: CGFloat(MAXFLOAT)), fontSize: 17)
                         // 中间有一张大图（包括视频和广告的图片），cell 的高度 = 底部间距 + 标题的高度 + 中间间距 + 图片高度 + 中间间距 + 用户头像的高度 + 底部间距
                         cellHeight = 2 * kHomeMargin + titleH + imageH + 2 * kMargin + 16
-//                        if itemTopic.large_image_list.count > 0 {
-//                            for index in itemTopic.large_image_list {
-//                                let largeImage = YMLargeImageList(dict: index as! [String : AnyObject])
-//                                large_image_list.append(largeImage)
-//                            }
-//                        }
                     } else {
                         // 如果 middle_image 不为空，则在 cell 显示一张图片 70 × 108，文字在左边，图片在右边
                         // 说明是右边图
@@ -110,10 +111,6 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
             } else {
                 // 如果 image_list 不为空，则显示 3 张图片 ((SCREENW -30 -12) / 3)×70，文字在上边
                 // 循环遍历 image_list
-//                for item in imageLists! {
-//                    let imageList = YMImageList(dict: item as! [String: AnyObject])
-//                    image_list.append(imageList)
-//                }
                 imageW = (SCREEN_WIDTH - CGFloat(42)) / 3
                 imageH = 70
                 // 文字的宽度 SCREENW-30
@@ -138,12 +135,41 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: NoImageCellIdentifier)
-        if cell == nil{
-            cell = TNHomeNoImageCell(style: UITableViewCellStyle.default, reuseIdentifier: NoImageCellIdentifier)
+        let model = self.dataArray[indexPath.row]
+        if model.image_list.count > 0 {
+            var cell = tableView.dequeueReusableCell(withIdentifier: ThreeImageCellIdentifier)
+            if cell == nil{
+                cell = TNHomeThreeImageCell(style: UITableViewCellStyle.default, reuseIdentifier: ThreeImageCellIdentifier)
+            }
+            (cell as? TNHomeThreeImageCell)?.model = model
+            return cell!
+            
+        }else {
+            if model.middle_image?.height != nil {
+                if model.video_detail_info?.video_id != nil || model.large_image_list.count != 0 {
+                    var cell = tableView.dequeueReusableCell(withIdentifier: LargeImageCellIdentifier)
+                    if cell == nil {
+                        cell = TNHomeLargeImageCell(style: UITableViewCellStyle.default, reuseIdentifier: LargeImageCellIdentifier)
+                    }
+                    (cell as? TNHomeLargeImageCell)?.model = model
+                    return cell!
+                }else {
+                    var cell = tableView.dequeueReusableCell(withIdentifier: RightImageCellIdentifier)
+                    if cell == nil{
+                        cell = TNHomeRightImageCell(style: UITableViewCellStyle.default, reuseIdentifier: RightImageCellIdentifier)
+                    }
+                    (cell as? TNHomeRightImageCell)?.model = model
+                    return cell!
+                }
+            }else {
+                var cell = tableView.dequeueReusableCell(withIdentifier: NoImageCellIdentifier)
+                if cell == nil{
+                    cell = TNHomeNoImageCell(style: UITableViewCellStyle.default, reuseIdentifier: NoImageCellIdentifier)
+                }
+                (cell as? TNHomeNoImageCell)?.model = self.dataArray[indexPath.row]
+                return cell!
+            }
         }
-        (cell as? TNHomeNoImageCell)?.model = self.dataArray[indexPath.row]
-        return cell!
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

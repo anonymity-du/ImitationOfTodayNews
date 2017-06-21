@@ -13,5 +13,69 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImitationOfTodayNews/Main/Home/Views/TNHomeNoImageCell.swift"
+            timestampString = "519730214.090449"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "model"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImitationOfTodayNews.TNHomeNoImageCell.model.didset : Swift.Optional&lt;ImitationOfTodayNews.TNTopicModel&gt;"
+                  moduleName = "ImitationOfTodayNews"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dukui/Desktop/mycode/ImitationOfTodayNews/ImitationOfTodayNews/Main/Home/Views/TNHomeNoImageCell.swift"
+                  timestampString = "519730558.002968"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "600">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImitationOfTodayNews.TNHomeNoImageCell.model.didset : Swift.Optional&lt;ImitationOfTodayNews.TNTopicModel&gt;"
+                  moduleName = "ImitationOfTodayNews"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dukui/Desktop/mycode/ImitationOfTodayNews/ImitationOfTodayNews/Main/Home/Views/TNHomeNoImageCell.swift"
+                  timestampString = "519730558.00612"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "804">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImitationOfTodayNews/Base/Extension/NSString+Extension.swift"
+            timestampString = "519730233.12423"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "changeDateTime(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

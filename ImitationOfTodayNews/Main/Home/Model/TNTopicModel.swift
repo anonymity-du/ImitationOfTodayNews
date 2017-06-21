@@ -146,7 +146,23 @@ class TNImageList: Reflect {
     var height: Int?
     var width: Int?
     var url: String?
-    var url_list: [[String:AnyObject]]?
+    var url_list: [urlModel]?
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "url" {
+            let stringValue = value as? String
+            
+            if (stringValue?.hasSuffix(".webp"))! {
+                let range = stringValue?.range(of: ".webp")
+                self.url = stringValue?.substring(to: range!.lowerBound)
+            } else {
+                self.url = stringValue
+            }
+        }else {
+            super.setValue(value, forKey: key)
+        }
+    }
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
         if key == "height" {
             self.height = value as? Int
@@ -155,25 +171,7 @@ class TNImageList: Reflect {
             self.width = value as? Int
         }
     }
-    override func setValue(_ value: Any?, forKey key: String) {
-        if key == "url_list" {
-            if let jsonArr = value as? Array<Any> {
-                for item in jsonArr {
-                    if let jsonStr = item as? String {
-                        let strData:Data = jsonStr.data(using: String.Encoding.utf8)!
-                        do{
-                            let dict = try JSONSerialization.jsonObject(with: strData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                            self.url_list?.append(dict as! [String : AnyObject])
-                        }catch {
-                            print("url_list trans error")
-                        }
-                    }
-                }
-            }
-        }else {
-            super.setValue(value, forKey: key)
-        }
-    }
+
 }
 
 class TNMediaInfo: Reflect {
@@ -196,71 +194,10 @@ class TNMiddleImage: Reflect {
     var height: Int?
     var width: Int?
     var url: String?
-    var url_list: [[String:AnyObject]]?
-    
-    override func setValue(_ value: Any?, forUndefinedKey key: String) {
-        if key == "height" {
-            self.height = value as? Int
-        }
-        if key == "width" {
-            self.width = value as? Int
-        }
-    }
-    override func setValue(_ value: Any?, forKey key: String) {
-        if key == "url_list" {
-            if let jsonArr = value as? Array<Any> {
-                for item in jsonArr {
-                    if let jsonStr = item as? String {
-                        let strData:Data = jsonStr.data(using: String.Encoding.utf8)!
-                        do{
-                            let dict = try JSONSerialization.jsonObject(with: strData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                            self.url_list?.append(dict as! [String : AnyObject])
-                        }catch {
-                            print("url_list trans error")
-                        }
-                    }
-                }
-            }
-        }else {
-            super.setValue(value, forKey: key)
-        }
-    }
-
-}
-
-class TNLargeImageList: Reflect {
-    var height: Int?
-    var width: Int?
-    var url: String?
-    var url_list: [[String:AnyObject]]?
+    var url_list: [urlModel]?
     
     override func setValue(_ value: Any?, forKey key: String) {
-        if key == "url_list" {
-            if let jsonArr = value as? Array<Any> {
-                for item in jsonArr {
-                    if let jsonStr = item as? String {
-                        let strData:Data = jsonStr.data(using: String.Encoding.utf8)!
-                        do{
-                            let dict = try JSONSerialization.jsonObject(with: strData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                            self.url_list?.append(dict as! [String : AnyObject])
-                        }catch {
-                            print("url_list trans error")
-                        }
-                    }
-                }
-            }
-        }else {
-            super.setValue(value, forKey: key)
-        }
-    }
-    
-    override func setValue(_ value: Any?, forUndefinedKey key: String) {
-        if key == "height" {
-            self.height = value as? Int
-        }
-        if key == "width" {
-            self.width = value as? Int
-        }
+        
         if key == "url" {
             let stringValue = value as? String
             
@@ -270,6 +207,50 @@ class TNLargeImageList: Reflect {
             } else {
                 self.url = stringValue
             }
+        }else {
+            super.setValue(value, forKey: key)
+        }
+    }
+    
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+        if key == "height" {
+            self.height = value as? Int
+        }
+        if key == "width" {
+            self.width = value as? Int
+        }
+    }
+
+}
+
+class TNLargeImageList: Reflect {
+    var height: Int?
+    var width: Int?
+    var url: String?
+    var url_list: [urlModel]?
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+
+        if key == "url" {
+            let stringValue = value as? String
+            
+            if (stringValue?.hasSuffix(".webp"))! {
+                let range = stringValue?.range(of: ".webp")
+                self.url = stringValue?.substring(to: range!.lowerBound)
+            } else {
+                self.url = stringValue
+            }
+        }else {
+            super.setValue(value, forKey: key)
+        }
+    }
+    
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+        if key == "height" {
+            self.height = value as? Int
+        }
+        if key == "width" {
+            self.width = value as? Int
         }
     }
 }
@@ -312,34 +293,48 @@ class TNDetailVideoLargeImage: Reflect {
     
     var url: String?
     
-    var url_list : [[String:AnyObject]]?
+    var url_list : [urlModel]?
+
     override func setValue(_ value: Any?, forKey key: String) {
-        if key == "url_list" {
-            if let jsonArr = value as? Array<Any> {
-                for item in jsonArr {
-                    if let jsonStr = item as? String {
-                        let strData:Data = jsonStr.data(using: String.Encoding.utf8)!
-                        do{
-                            let dict = try JSONSerialization.jsonObject(with: strData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                            self.url_list?.append(dict as! [String : AnyObject])
-                        }catch {
-                            print("url_list trans error")
-                        }
-                    }
-                }
+        
+        if key == "url" {
+            let stringValue = value as? String
+            
+            if (stringValue?.hasSuffix(".webp"))! {
+                let range = stringValue?.range(of: ".webp")
+                self.url = stringValue?.substring(to: range!.lowerBound)
+            } else {
+                self.url = stringValue
             }
         }else {
             super.setValue(value, forKey: key)
         }
     }
-
-    
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
         if key == "height" {
             self.height = value as? Int
         }
         if key == "width" {
             self.width = value as? Int
+        }
+    }
+
+}
+class urlModel: Reflect {
+    var url : String?
+    override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "url" {
+            let stringValue = value as? String
+            
+            if (stringValue?.hasSuffix(".webp"))! {
+                let range = stringValue?.range(of: ".webp")
+                self.url = stringValue?.substring(to: range!.lowerBound)
+            } else {
+                self.url = stringValue
+            }
+        }else {
+            super.setValue(value, forKey: key)
         }
     }
 }

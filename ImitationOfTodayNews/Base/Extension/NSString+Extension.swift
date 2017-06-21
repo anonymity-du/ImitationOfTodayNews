@@ -42,10 +42,10 @@ extension NSString {
                 if comp.day == comp2.day {
                     return "\(comp.hour! - comp2.hour!)小时前"
                 } else {
-                    return "\(comp2.month)-\(comp2.day) \(comp2.hour):\(comp2.minute)"
+                    return "\(comp2.month!)-\(comp2.day!) \(comp2.hour!):\(comp2.minute!)"
                 }
             } else {
-                return "\(comp2.year)-\(comp2.month)-\(comp2.day) \(comp2.hour):\(comp2.minute)"
+                return "\(comp2.year!)-\(comp2.month!)-\(comp2.day!) \(comp2.hour!):\(comp2.minute!)"
             }
         }
     }

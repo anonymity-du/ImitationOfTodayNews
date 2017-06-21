@@ -84,6 +84,7 @@ class NetworkManager: NSObject {
                         let contentData:Data = content.data(using: String.Encoding.utf8)!
                         do{
                             let dict = try JSONSerialization.jsonObject(with: contentData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
+                            print(dict)
                             let topic = TNTopicModel.parse(dict: dict )
                             topics.append(topic)
                         }catch {
