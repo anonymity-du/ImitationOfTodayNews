@@ -62,6 +62,9 @@ class TNHomeLargeImageCell: TNHomeGenericCell {
         }
     }
     
+    override func closeBtnClicked() {
+        self.delegate?.closeBtnClicked(self.model!,self,closeBtn)
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

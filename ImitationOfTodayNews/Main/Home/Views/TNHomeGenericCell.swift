@@ -10,6 +10,8 @@ import UIKit
 
 class TNHomeGenericCell: UITableViewCell {
 
+    weak var delegate : GenericCellDelegate?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.createUI()
@@ -114,4 +116,8 @@ class TNHomeGenericCell: UITableViewCell {
         closeBtn.right = self.contentView.right - kHomeMargin
         closeBtn.centerY = avatorImageView.centerY
     }
+}
+
+protocol GenericCellDelegate : NSObjectProtocol {
+    func closeBtnClicked(_ topicModel : TNTopicModel,_ cell : TNHomeGenericCell,_ closeBtn : UIButton)
 }

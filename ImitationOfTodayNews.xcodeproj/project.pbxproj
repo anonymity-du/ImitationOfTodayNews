@@ -12,6 +12,7 @@
 		233548A01EFA3F6D007BDBA4 /* TNHomeThreeImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335489F1EFA3F6D007BDBA4 /* TNHomeThreeImageCell.swift */; };
 		233548A21EFA59CB007BDBA4 /* TNHomeLargeImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233548A11EFA59CB007BDBA4 /* TNHomeLargeImageCell.swift */; };
 		233548A41EFA6389007BDBA4 /* TNHomeRightImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233548A31EFA6389007BDBA4 /* TNHomeRightImageCell.swift */; };
+		233548A61EFD0045007BDBA4 /* TNPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233548A51EFD0045007BDBA4 /* TNPopView.swift */; };
 		23392C9A1EF90B1500BB9653 /* NSString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23392C991EF90B1500BB9653 /* NSString+Extension.swift */; };
 		23392C9C1EF9112400BB9653 /* TNHomeGenericCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23392C9B1EF9112400BB9653 /* TNHomeGenericCell.swift */; };
 		23392C9E1EF91C6700BB9653 /* TNHomeNoImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23392C9D1EF91C6700BB9653 /* TNHomeNoImageCell.swift */; };
@@ -71,6 +72,7 @@
 		2335489F1EFA3F6D007BDBA4 /* TNHomeThreeImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeThreeImageCell.swift; sourceTree = "<group>"; };
 		233548A11EFA59CB007BDBA4 /* TNHomeLargeImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeLargeImageCell.swift; sourceTree = "<group>"; };
 		233548A31EFA6389007BDBA4 /* TNHomeRightImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeRightImageCell.swift; sourceTree = "<group>"; };
+		233548A51EFD0045007BDBA4 /* TNPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNPopView.swift; sourceTree = "<group>"; };
 		23392C991EF90B1500BB9653 /* NSString+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Extension.swift"; sourceTree = "<group>"; };
 		23392C9B1EF9112400BB9653 /* TNHomeGenericCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeGenericCell.swift; sourceTree = "<group>"; };
 		23392C9D1EF91C6700BB9653 /* TNHomeNoImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNHomeNoImageCell.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				2335489F1EFA3F6D007BDBA4 /* TNHomeThreeImageCell.swift */,
 				233548A11EFA59CB007BDBA4 /* TNHomeLargeImageCell.swift */,
 				233548A31EFA6389007BDBA4 /* TNHomeRightImageCell.swift */,
+				233548A51EFD0045007BDBA4 /* TNPopView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				23392C9A1EF90B1500BB9653 /* NSString+Extension.swift in Sources */,
 				235CF29D1EE830090059BC80 /* Reflect+Property.swift in Sources */,
 				235CF29F1EE830090059BC80 /* Reflect.swift in Sources */,
+				233548A61EFD0045007BDBA4 /* TNPopView.swift in Sources */,
 				235CF28A1EE816240059BC80 /* TNHomeTopTitleModel.swift in Sources */,
 				235C3F131EF381C3002E5F77 /* TNTopTipView.swift in Sources */,
 				235CF29E1EE830090059BC80 /* Reflect+Type.swift in Sources */,

@@ -25,13 +25,19 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
         // 添加滚动视图
         view.backgroundColor = UIColor.white
         view.addSubview(scrollView)
-        
+        tabBarController?.view.addSubview(popView)
         showRecommendCountTips()
         
         setTitleViewClosure()
         // Do any additional setup after loading the view.
     }
-
+    
+    func showPopView(_ filterWords : [TNFilterWord],_ btnCenter : CGPoint) {
+        popView.filterWords = filterWords
+        popView.btnCenter = btnCenter
+        popView.show()
+    }
+    
     fileprivate func setTitleViewClosure() {
         titleView.addBtnClickedClosure = {
             
@@ -45,6 +51,7 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
             var colorNumber : CGFloat = 10;
             for topTitle in titleArr {
                 let topicVC = TNTopicViewController()
+                topicVC.homeVC = self
                 topicVC.titleModel = topTitle
                 topicVC.title = topTitle.name
                 topicVC.view.backgroundColor = UIColor.init(red: colorNumber/255.0, green: colorNumber/255.0, blue: 0, alpha: 1.0)
@@ -95,6 +102,12 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
         let tipView = TNTopTipView(frame:CGRect.init(x: 0, y: 44, width: self.view.width, height: 35))
         self.navigationController?.navigationBar.insertSubview(tipView,at:0)
         return tipView
+    }()
+    
+    fileprivate lazy var popView : TNPopView = {
+        let pop = TNPopView(frame: self.view.bounds)
+        pop.alpha = 0
+        return pop
     }()
     
     fileprivate func addSubVCView() {

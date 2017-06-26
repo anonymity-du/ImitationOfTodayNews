@@ -15,8 +15,9 @@ let ThreeImageCellIdentifier = "ThreeImageCellIdentifier"
 let LargeImageCellIdentifier = "LargeImageCellIdentifier"
 let RightImageCellIdentifier = "RightImageCellIdentifier"
 
-class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewDataSource {
+class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewDataSource,GenericCellDelegate {
     
+    weak var homeVC : TNHomeViewController?
     var didLoad : Bool = false
     var titleModel : TNHomeTopTitleModel?
     var refreshTime : TimeInterval = 0
@@ -141,6 +142,7 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
             if cell == nil{
                 cell = TNHomeThreeImageCell(style: UITableViewCellStyle.default, reuseIdentifier: ThreeImageCellIdentifier)
             }
+            (cell as? TNHomeThreeImageCell)?.delegate = self
             (cell as? TNHomeThreeImageCell)?.model = model
             return cell!
             
@@ -151,6 +153,7 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
                     if cell == nil {
                         cell = TNHomeLargeImageCell(style: UITableViewCellStyle.default, reuseIdentifier: LargeImageCellIdentifier)
                     }
+                    (cell as? TNHomeLargeImageCell)?.delegate = self
                     (cell as? TNHomeLargeImageCell)?.model = model
                     return cell!
                 }else {
@@ -158,6 +161,7 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
                     if cell == nil{
                         cell = TNHomeRightImageCell(style: UITableViewCellStyle.default, reuseIdentifier: RightImageCellIdentifier)
                     }
+                    (cell as? TNHomeRightImageCell)?.delegate = self
                     (cell as? TNHomeRightImageCell)?.model = model
                     return cell!
                 }
@@ -166,6 +170,7 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
                 if cell == nil{
                     cell = TNHomeNoImageCell(style: UITableViewCellStyle.default, reuseIdentifier: NoImageCellIdentifier)
                 }
+                (cell as? TNHomeNoImageCell)?.delegate = self
                 (cell as? TNHomeNoImageCell)?.model = self.dataArray[indexPath.row]
                 return cell!
             }
@@ -176,7 +181,13 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
         let topicModel = self.dataArray[indexPath.row]
         return topicModel.cellHeight
     }
-    
+
+    func closeBtnClicked(_ topicModel : TNTopicModel,_ cell : TNHomeGenericCell,_ closeBtn : UIButton) {
+        var btnCenter : CGPoint = self.view.convert(closeBtn.center, from: cell.contentView)
+        btnCenter.y = btnCenter.y + 64
+        self.homeVC?.showPopView(topicModel.filter_words,btnCenter)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
