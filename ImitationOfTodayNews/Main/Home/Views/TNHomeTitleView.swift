@@ -40,7 +40,7 @@ class TNHomeTitleView: UIView {
         super.init(frame: frame)
         
         NetworkManager.shareManager.fetchHomeTitlesData({ [weak self](topTitles) in
-            print(topTitles)
+//            print(topTitles)
             let recommend = TNHomeTopTitleModel()
             recommend.category = "__all__"
             recommend.name = "推荐"

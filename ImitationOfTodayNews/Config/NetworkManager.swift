@@ -84,7 +84,7 @@ class NetworkManager: NSObject {
                         let contentData:Data = content.data(using: String.Encoding.utf8)!
                         do{
                             let dict = try JSONSerialization.jsonObject(with: contentData, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                            print(dict)
+//                            print(dict)
                             let topic = TNTopicModel.parse(dict: dict )
                             topics.append(topic)
                         }catch {
@@ -95,5 +95,31 @@ class NetworkManager: NSObject {
                 success(topics)
         }
         
+    }
+    func fetchAllTopic(_ success: @escaping (([TNHomeTopTitleModel])->()),_ failure :@escaping ((_ error:Error)->())) {
+        let url = "https://lf.snssdk.com/article/category/get_extra/v1/?"
+        let params = ["device_id": device_id,
+                      "aid": 13,
+                      "iid": IID] as [String : Any]
+        Alamofire.request(url, method: .get, parameters: params)
+            .responseJSON{ (response) in
+                guard response.result.isSuccess else {
+                    failure(response.error!)
+                    return
+                }
+                var topics = [TNHomeTopTitleModel]()
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    if let dataDict = json["data"].dictionaryObject {
+                        if let dataArr = dataDict["data"]{
+                            for dict in dataArr as! Array<Any> {
+                                let topic = TNHomeTopTitleModel.parse(dict: dict as! NSDictionary)
+                                topics.append(topic)
+                            }
+                        }
+                    }
+                }
+                success(topics)
+        }
     }
 }

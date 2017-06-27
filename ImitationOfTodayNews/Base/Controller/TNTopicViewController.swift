@@ -44,7 +44,7 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
         NetworkManager.shareManager.fetchHomeCategoryNews((titleModel?.category)!, self.refreshTime, { [weak self] (topics) in
             self?.refreshTime = Date().timeIntervalSince1970
             self?.endRefresh()
-            print(topics)
+//            print(topics)
             self?.calculateDistance(topics)
             self?.dataArray.removeAll()
             self?.dataArray.append(contentsOf: topics)
@@ -59,7 +59,7 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
         NetworkManager.shareManager.fetchHomeCategoryNews((titleModel?.category)!, self.refreshTime, {[weak self] (topics) in
             self?.refreshTime = Date().timeIntervalSince1970
             self?.endRefresh()
-            print(topics)
+//            print(topics)
             self?.calculateDistance(topics)
             self?.dataArray.append(contentsOf: topics)
             self?.tableView.reloadData()

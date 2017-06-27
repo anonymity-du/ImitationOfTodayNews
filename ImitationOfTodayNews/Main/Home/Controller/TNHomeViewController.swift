@@ -19,7 +19,6 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
         automaticallyAdjustsScrollViewInsets = false
         // 设置导航栏属性
         navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.barTintColor = TNColor(210, 63, 66, 1.0)
         // 设置 titleView
         navigationItem.titleView = titleView
         // 添加滚动视图
@@ -32,6 +31,11 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barTintColor = TNColor(210, 63, 66, 1.0)
+    }
+    
     func showPopView(_ filterWords : [TNFilterWord],_ btnCenter : CGPoint) {
         popView.filterWords = filterWords
         popView.btnCenter = btnCenter
@@ -39,8 +43,10 @@ class TNHomeViewController: UIViewController , UIScrollViewDelegate{
     }
     
     fileprivate func setTitleViewClosure() {
-        titleView.addBtnClickedClosure = {
-            
+        titleView.addBtnClickedClosure = {[weak self] in
+            let vc = TNChangeTopicViewController()
+            vc.myTopics = self!.topicTitles
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         titleView.topicSelectedClosure = { [weak self] (titleLabel) in
             self!.scrollView.setContentOffset(CGPoint(x:CGFloat(titleLabel.tag) * self!.scrollView.width,y:0), animated: true)
