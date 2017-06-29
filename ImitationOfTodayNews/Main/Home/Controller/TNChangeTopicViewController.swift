@@ -9,9 +9,10 @@
 import UIKit
 import SVProgressHUD
 
-class TNChangeTopicViewController: UIViewController {
+class TNChangeTopicViewController: UIViewController,TopicViewDelegate {
     
     var myTopics : [TNHomeTopTitleModel]?
+    var otherTopics : [TNHomeTopTitleModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +47,11 @@ class TNChangeTopicViewController: UIViewController {
         operateBtn.centerY = myTopicLabel.centerY
         
         scrollView.addSubview(topicView)
+        topicView.delegate = self
         topicView.isMine = true
         topicView.topics = myTopics
         topicView.y = myTopicLabel.bottom + kMargin
-        topicView.height = topicView.getContentHeight()
+        topicView.height = topicView.getContentHeight(myTopics!.count)
         
         scrollView.addSubview(commendTopicLabel)
         commendTopicLabel.x = kMargin
@@ -60,6 +62,7 @@ class TNChangeTopicViewController: UIViewController {
         commendTopicSubLabel.bottom = commendTopicLabel.bottom
         
         scrollView.addSubview(commendTopicView)
+        commendTopicView.delegate = self
         commendTopicView.isMine = false
         commendTopicView.y = commendTopicLabel.bottom + kMargin
         
@@ -69,8 +72,9 @@ class TNChangeTopicViewController: UIViewController {
     func fetchData() {
         NetworkManager.shareManager.fetchAllTopic({[weak self] (topics) in
             print(topics)
+            self?.otherTopics = topics
             self?.commendTopicView.topics = topics
-            self?.commendTopicView.height = (self?.commendTopicView.getContentHeight())!
+            self?.commendTopicView.height = (self?.commendTopicView.getContentHeight(topics.count))!
             self?.scrollView.contentSize = CGSize(width: self!.view.width, height: self!.commendTopicView.bottom + kHomeMargin)
         }) { (error) in
             SVProgressHUD.showError(withStatus: "加载失败...")
@@ -78,13 +82,84 @@ class TNChangeTopicViewController: UIViewController {
     }
     
     func closeBarButtonClicked() {
-        self.navigationController?.popViewController(animated: true)
+        print(self.myTopics?.count)
+        print(self.topicView.subviews)
+//        self.navigationController?.popViewController(animated: true)
     }
     
     func operateBtnClicked() {
-        
+        if self.operateBtn.titleLabel?.text != "编辑" {
+            self.operateBtn.setTitle("编辑", for: UIControlState.normal)
+            self.topicView.hideCloseImageView(true)
+            self.commendTopicView.isUserInteractionEnabled = true
+        }else {
+            self.operateBtn.setTitle("完成", for: UIControlState.normal)
+            self.topicView.hideCloseImageView(false)
+            self.commendTopicView.isUserInteractionEnabled = false
+            
+        }
     }
     
+    //MARK: topicview delegate
+    func topicViewItemLabelTaped(_ itemLabel: UILabel, _ topicView: TNTopicView) {
+//        let newItemLabel = itemLabel.copy()
+        if topicView == self.commendTopicView {
+            let newRect = self.topicView.getNewLastRect()
+            let tranRect = self.commendTopicView.convert(newRect, from: self.topicView)
+            self.commendTopicView.startSelectCommendTopicLabelMoveAction(tranRect) {[weak self] in
+                print("lalalalalallala")
+                let topic = (self?.otherTopics?[itemLabel.tag])!
+                self?.myTopics?.append(topic)
+                self?.otherTopics?.remove(at: itemLabel.tag)
+                self?.topicView.addNewItemLabel(newRect, topic)
+                if self?.topicView.height != self?.topicView.getContentHeight((self?.myTopics?.count)!) || self?.commendTopicView.height != self?.commendTopicView.getContentHeight((self?.otherTopics?.count)!) {
+                    let offsetY = (self?.topicView.getContentHeight((self?.myTopics?.count)!))! - (self?.topicView.height)!
+                    UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                        self?.topicView.height = (self?.topicView.height)! + offsetY
+                        self?.commendTopicLabel.y = (self?.commendTopicLabel.y)! + offsetY
+                        self?.commendTopicSubLabel.y = (self?.commendTopicSubLabel.y)! + offsetY
+                        self?.commendTopicView.y = (self?.commendTopicView.y)! + offsetY
+                        self?.commendTopicView.height = (self?.commendTopicView.getContentHeight((self?.otherTopics?.count)!))!
+                        }, completion: { (finished) in
+                            if finished {
+                                self!.scrollView.contentSize = CGSize(width: self!.scrollView.contentSize.width, height: self!.scrollView.contentSize.height + offsetY)
+                            }
+                    })
+                }
+            }
+
+        }
+    }
+    
+    func topicViewItemLabelLongPress() {
+        if self.operateBtn.titleLabel?.text == "编辑" {
+            self.operateBtnClicked()
+        }
+    }
+    
+    func topicViewItemLabelClosed(_ itemLabel: UILabel) {
+        let topic = (self.myTopics?[itemLabel.tag])!
+        self.myTopics?.remove(at: itemLabel.tag)
+        self.topicView.removeTopic(itemLabel.tag)
+        self.otherTopics?.append(topic)
+        self.commendTopicView.addNewItemLabel(CGRect.zero, topic)
+        if self.topicView.height != self.topicView.getContentHeight((self.myTopics?.count)!) || self.commendTopicView.height != self.commendTopicView.getContentHeight((self.otherTopics?.count)!) {
+            let offsetY = self.topicView.getContentHeight((self.myTopics?.count)!) - self.topicView.height
+            UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                self?.topicView.height = (self?.topicView.height)! + offsetY
+                self?.commendTopicLabel.y = (self?.commendTopicLabel.y)! + offsetY
+                self?.commendTopicSubLabel.y = (self?.commendTopicSubLabel.y)! + offsetY
+                self?.commendTopicView.y = (self?.commendTopicView.y)! + offsetY
+                self?.commendTopicView.height = (self?.commendTopicView.getContentHeight((self?.otherTopics?.count)!))!
+                }, completion: { (finished) in
+                    if finished {
+                        self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + offsetY)
+                    }
+            })
+        }
+    }
+    
+    //MARK: lazy loading
     fileprivate lazy var scrollView : UIScrollView = {
         let scroll = UIScrollView(frame: CGRect(x: 0, y: 64, width: self.view.width, height: self.view.height - 64))
         scroll.backgroundColor = UIColor.clear
