@@ -182,6 +182,13 @@ class TNTopicViewController: ListViewController,UITableViewDelegate,UITableViewD
         return topicModel.cellHeight
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = TNTopicDetailViewController()
+        vc.topic = self.dataArray[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func closeBtnClicked(_ topicModel : TNTopicModel,_ cell : TNHomeGenericCell,_ closeBtn : UIButton) {
         var btnCenter : CGPoint = self.view.convert(closeBtn.center, from: cell.contentView)
         btnCenter.y = btnCenter.y + 64

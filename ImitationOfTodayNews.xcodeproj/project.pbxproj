@@ -33,6 +33,7 @@
 		235CF29D1EE830090059BC80 /* Reflect+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CF2951EE830090059BC80 /* Reflect+Property.swift */; };
 		235CF29E1EE830090059BC80 /* Reflect+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CF2961EE830090059BC80 /* Reflect+Type.swift */; };
 		235CF29F1EE830090059BC80 /* Reflect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CF2971EE830090059BC80 /* Reflect.swift */; };
+		2372BC3B1F04FD3F00F323E7 /* TNTopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2372BC3A1F04FD3F00F323E7 /* TNTopicDetailViewController.swift */; };
 		23A78F631ED55DB900AADFE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A78F621ED55DB900AADFE9 /* AppDelegate.swift */; };
 		23A78F651ED55DB900AADFE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A78F641ED55DB900AADFE9 /* ViewController.swift */; };
 		23A78F6A1ED55DB900AADFE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23A78F691ED55DB900AADFE9 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		235CF2951EE830090059BC80 /* Reflect+Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reflect+Property.swift"; sourceTree = "<group>"; };
 		235CF2961EE830090059BC80 /* Reflect+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reflect+Type.swift"; sourceTree = "<group>"; };
 		235CF2971EE830090059BC80 /* Reflect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflect.swift; sourceTree = "<group>"; };
+		2372BC3A1F04FD3F00F323E7 /* TNTopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTopicDetailViewController.swift; sourceTree = "<group>"; };
 		23A78F5F1ED55DB900AADFE9 /* ImitationOfTodayNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImitationOfTodayNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23A78F621ED55DB900AADFE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23A78F641ED55DB900AADFE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				234459361ED70606002F9A4C /* TNHomeViewController.swift */,
 				23F02C9F1EF38EBB008E1B3A /* TNTopicViewController.swift */,
 				232E65A41F014B7E00E246B8 /* TNChangeTopicViewController.swift */,
+				2372BC3A1F04FD3F00F323E7 /* TNTopicDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				23F02CA41EF414E2008E1B3A /* GenericTableView.swift in Sources */,
 				234459321ED68B05002F9A4C /* UIColor+Extension.swift in Sources */,
 				232E65A51F014B7E00E246B8 /* TNChangeTopicViewController.swift in Sources */,
+				2372BC3B1F04FD3F00F323E7 /* TNTopicDetailViewController.swift in Sources */,
 				23B8130B1F027D0900A0CE31 /* TNTopicView.swift in Sources */,
 				234459371ED70606002F9A4C /* TNHomeViewController.swift in Sources */,
 				23FB94491EF505CB0020122C /* TNTopicModel.swift in Sources */,
